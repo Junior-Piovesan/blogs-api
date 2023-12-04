@@ -8,6 +8,8 @@ module.exports = {
           type:Sequelize.INTEGER,
           primaryKey:true,
           field:'post_id',
+          primaryKey: true,
+
           references: {
             model: 'blog_posts',
             key:'id',
@@ -20,6 +22,8 @@ module.exports = {
           type:Sequelize.INTEGER,
           primaryKey:true,
           field:'category_id',
+          primaryKey: true,
+
           references: {
             model: 'categories',
             key:'id',
