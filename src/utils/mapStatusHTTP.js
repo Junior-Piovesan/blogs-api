@@ -5,6 +5,7 @@ const statusHTPP = {
   BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
   BOT_FOUND: 404,
+  CONFLICT: 409,
 };
 
 const mapStatusHTTP = (status) => statusHTPP[status];

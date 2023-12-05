@@ -11,6 +11,15 @@ const loginResponse = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const createUserResponse = async (req, res) => {
+  const newUser = req.body;
+
+  const { status, data } = await userService.checkUserCreation(newUser);
+
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   loginResponse,
+  createUserResponse,
 };

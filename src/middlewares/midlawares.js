@@ -4,6 +4,8 @@ const {
 
 const mapStatusHTTP = require('../utils/mapStatusHTTP');
 
+const schema = require('../utils/schemas');
+
 const checkLogin = (req, res, next) => {
   const { email, password } = req.body;
 
@@ -20,10 +22,23 @@ const checkLogin = (req, res, next) => {
   return next();
 };
 
+const checkUserCreation = (req, res, next) => {
+  const newUser = req.body;
+
+  const { error } = schema.createUserValidate
+    .validate(newUser);
+
+  if (error) {
+    return res.status(mapStatusHTTP(BAD_REQUEST)).json({ message: error.message });
+  }
+  return next();
+};
+
 const errorMiddleware = (error, _req, res, _next) => (
   res.status(500).json({ message: error.message }));
 
 module.exports = {
   checkLogin,
   errorMiddleware,
+  checkUserCreation,
 };

@@ -4,6 +4,7 @@ const NO_CONTENT = 'NO_CONTENT';
 const BAD_REQUEST = 'BAD_REQUEST';
 const UNAUTHORIZED = 'UNAUTHORIZED';
 const NOT_FOUND = 'BOT_FOUND';
+const CONFLICT = 'CONFLICT';
 
 module.exports = {
   SUCCESS,
@@ -12,4 +13,5 @@ module.exports = {
   BAD_REQUEST,
   UNAUTHORIZED,
   NOT_FOUND,
+  CONFLICT,
 };

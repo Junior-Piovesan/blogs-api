@@ -5,6 +5,9 @@ const createToken = require('../utils/createToken');
 const {
   SUCCESS,
   BAD_REQUEST,
+  CREATED,
+  CONFLICT,
+
 } = require('../utils/HTTPCode');
 
 const { User } = require('../models');
@@ -21,6 +24,31 @@ const checkLogin = async (email, password) => {
   return returnSuccessStatus(SUCCESS, { token });
 };
 
+const checkUserCreation = async (newUser) => {
+  const { displayName, email, password, image } = newUser;
+
+  const checkEmailregistered = await User.findOne({ where: { email } });
+
+  console.log(checkEmailregistered);
+  console.log(email);
+
+  if (checkEmailregistered) {
+    return returnSuccessStatus(CONFLICT, { message: 'User already registered' });
+  }
+
+  await User.create({
+    displayName,
+    email,
+    password,
+    image,
+  });
+
+  const token = createToken(newUser);
+  
+  return returnSuccessStatus(CREATED, { token });
+};
+
 module.exports = {
   checkLogin,
+  checkUserCreation,
 };
