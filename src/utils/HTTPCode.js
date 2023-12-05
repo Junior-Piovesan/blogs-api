@@ -3,7 +3,7 @@ const CREATED = 'CREATED';
 const NO_CONTENT = 'NO_CONTENT';
 const BAD_REQUEST = 'BAD_REQUEST';
 const UNAUTHORIZED = 'UNAUTHORIZED';
-const BOT_FOUND = 'BOT_FOUND';
+const NOT_FOUND = 'BOT_FOUND';
 
 module.exports = {
   SUCCESS,
@@ -11,5 +11,5 @@ module.exports = {
   NO_CONTENT,
   BAD_REQUEST,
   UNAUTHORIZED,
-  BOT_FOUND,
+  NOT_FOUND,
 };

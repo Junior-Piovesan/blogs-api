@@ -53,7 +53,7 @@ const blogPostModel = (sequelize,DataTypes) => {
 
     BlogPost.belongsTo(models.User, {
       foreignKey: 'userId',
-      as: 'userId'
+      as: 'user'
     })
   }
 

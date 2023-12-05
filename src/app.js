@@ -1,5 +1,6 @@
 const express = require('express');
-
+const routers = require('./routes');
+const middlewares = require('./middlewares/midlawares');
 // ...
 
 const app = express();
@@ -11,7 +12,9 @@ app.get('/', (_request, response) => {
 
 app.use(express.json());
 
-// ...
+app.use(routers);
+
+app.use(middlewares.errorMiddleware);// ...
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
