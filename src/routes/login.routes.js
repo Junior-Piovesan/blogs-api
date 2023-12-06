@@ -11,6 +11,14 @@ router.get(
   userControllers.getAllUsers,
 );
 
+router.get(
+  '/user/:id',
+  // (req,res) => res.status(200).json(req.params.id),
+  authorizationMiddlaware.authentication,
+  userControllers.getUserById,
+
+);
+
 router.post(
   '/login',
   middlawares.checkLogin,

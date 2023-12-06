@@ -25,8 +25,17 @@ const getAllUsers = async (_req, res) => {
   res.status(mapStatusHTTP(status)).json(data);
 };
 
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+
+  const { status, data } = await userService.checkUserIdExist(id);
+
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   loginResponse,
   createUserResponse,
   getAllUsers,
+  getUserById,
 };

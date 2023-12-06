@@ -23,19 +23,11 @@ const checkUserCreation = async (newUser) => {
 
   const checkEmailregistered = await User.findOne({ where: { email } });
 
-  console.log(checkEmailregistered);
-  console.log(email);
-
   if (checkEmailregistered) {
     return returnSuccessStatus(codeHTTP.CONFLICT, { message: 'User already registered' });
   }
 
-  await User.create({
-    displayName,
-    email,
-    password,
-    image,
-  });
+  await User.create({ displayName, email, password, image });
 
   const token = createToken(newUser);
   
@@ -44,13 +36,21 @@ const checkUserCreation = async (newUser) => {
 
 const getAllUsers = async () => {
   const users = await User.findAll({ attributes: { exclude: ['password'] } });   
-  // const users = await User.findAll(); 
 
   return returnSuccessStatus(codeHTTP.SUCCESS, users);
+};
+
+const checkUserIdExist = async (id) => {
+  const user = await User.findByPk(id, { attributes: { exclude: ['password'] } });
+  if (!user) {
+    return returnErrorStatus(codeHTTP.NOT_FOUND, 'User does not exist');
+  }
+  return returnSuccessStatus(codeHTTP.SUCCESS, user);
 };
 
 module.exports = {
   checkLogin,
   checkUserCreation,
   getAllUsers,
+  checkUserIdExist,
 };
