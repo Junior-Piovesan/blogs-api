@@ -9,7 +9,7 @@ const createToken = (user) => {
   const { JWT_SECRET } = process.env;
 
   const token = jwt
-    .sign({ data: { userName: user.displayName } }, JWT_SECRET, jwtConfig);
+    .sign({ data: { email: user.email } }, JWT_SECRET, jwtConfig);
 
   return token;
 };

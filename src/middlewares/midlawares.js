@@ -1,21 +1,22 @@
-const {
-  BAD_REQUEST,
-} = require('../utils/HTTPCode');
+const codeHTTP = require('../utils/HTTPCode');
 
 const mapStatusHTTP = require('../utils/mapStatusHTTP');
 
 const schema = require('../utils/schemas');
 
+const errorMiddleware = (error, _req, res, _next) => (
+  res.status(500).json({ message: error.message }));
+
 const checkLogin = (req, res, next) => {
   const { email, password } = req.body;
 
   if ((!email || !password)) {
-    return res.status(mapStatusHTTP(BAD_REQUEST))
+    return res.status(mapStatusHTTP(codeHTTP.BAD_REQUEST))
       .json({ message: 'Some required fields are missing' });
   }
   
   if ((email.length < 1 || password.length < 1)) {
-    return res.status(mapStatusHTTP(BAD_REQUEST))
+    return res.status(mapStatusHTTP(codeHTTP.BAD_REQUEST))
       .json({ message: 'Invalid fields' });
   }
 
@@ -29,13 +30,10 @@ const checkUserCreation = (req, res, next) => {
     .validate(newUser);
 
   if (error) {
-    return res.status(mapStatusHTTP(BAD_REQUEST)).json({ message: error.message });
+    return res.status(mapStatusHTTP(codeHTTP.BAD_REQUEST)).json({ message: error.message });
   }
   return next();
 };
-
-const errorMiddleware = (error, _req, res, _next) => (
-  res.status(500).json({ message: error.message }));
 
 module.exports = {
   checkLogin,

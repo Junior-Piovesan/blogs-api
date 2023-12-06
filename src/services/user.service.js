@@ -2,13 +2,7 @@ const returnSuccessStatus = require('../utils/returnSuccessStatus');
 const returnErrorStatus = require('../utils/returnErrorStatus');
 const createToken = require('../utils/createToken');
 
-const {
-  SUCCESS,
-  BAD_REQUEST,
-  CREATED,
-  CONFLICT,
-
-} = require('../utils/HTTPCode');
+const codeHTTP = require('../utils/HTTPCode');
 
 const { User } = require('../models');
 
@@ -16,12 +10,12 @@ const checkLogin = async (email, password) => {
   const user = await User.findOne({ where: { email } });
 
   if (!user || user.dataValues.password !== password) {
-    return returnErrorStatus(BAD_REQUEST, 'Invalid fields');
+    return returnErrorStatus(codeHTTP.BAD_REQUEST, 'Invalid fields');
   }
   
   const token = createToken({ email, password });
 
-  return returnSuccessStatus(SUCCESS, { token });
+  return returnSuccessStatus(codeHTTP.SUCCESS, { token });
 };
 
 const checkUserCreation = async (newUser) => {
@@ -33,7 +27,7 @@ const checkUserCreation = async (newUser) => {
   console.log(email);
 
   if (checkEmailregistered) {
-    return returnSuccessStatus(CONFLICT, { message: 'User already registered' });
+    return returnSuccessStatus(codeHTTP.CONFLICT, { message: 'User already registered' });
   }
 
   await User.create({
@@ -45,10 +39,18 @@ const checkUserCreation = async (newUser) => {
 
   const token = createToken(newUser);
   
-  return returnSuccessStatus(CREATED, { token });
+  return returnSuccessStatus(codeHTTP.CREATED, { token });
+};
+
+const getAllUsers = async () => {
+  const users = await User.findAll({ attributes: { exclude: ['password'] } });   
+  // const users = await User.findAll(); 
+
+  return returnSuccessStatus(codeHTTP.SUCCESS, users);
 };
 
 module.exports = {
   checkLogin,
   checkUserCreation,
+  getAllUsers,
 };

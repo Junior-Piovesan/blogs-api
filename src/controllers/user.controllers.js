@@ -19,7 +19,14 @@ const createUserResponse = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const getAllUsers = async (_req, res) => {
+  const { status, data } = await userService.getAllUsers();
+
+  res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   loginResponse,
   createUserResponse,
+  getAllUsers,
 };
