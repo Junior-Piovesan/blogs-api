@@ -13,7 +13,12 @@ const createUserValidate = Joi.object({
   image: Joi.string().optional(),
 });
 
+const createNewCategoryValidate = Joi.object({
+  name: Joi.string().min(3).required(),
+});
+
 module.exports = {
   loginValidate,
   createUserValidate,
+  createNewCategoryValidate,
 };
