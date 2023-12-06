@@ -17,7 +17,7 @@ const authentication = (req, res, next) => {
   try {
     const claims = jwt.verify(token, JWT_SECRET);
     res.locals.user = {
-      email: claims.email,
+      email: claims.data.email,
     };
   } catch (error) {
     return res.status(mapStatusHTTP(codeHTTP.UNAUTHORIZED))

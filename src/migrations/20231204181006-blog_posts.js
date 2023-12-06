@@ -40,6 +40,7 @@ module.exports = {
 
       updated: {
         type: Sequelize.DATE,
+        defaultValue: Sequelize.DATE,
         allowNull:false,
       },
 

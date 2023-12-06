@@ -36,6 +36,7 @@ const blogPostModel = (sequelize,DataTypes) => {
 
     updated: {
       type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
       allowNull: false,
     },
   },
