@@ -17,6 +17,13 @@ const checksCategoryRegistration = async (newCategory) => {
   return returnSuccessStatus(codeHTTP.CREATED, registeredCategory);
 };
 
+const getAllCategories = async () => {
+  const categories = await Category.findAll();
+
+  return returnSuccessStatus(codeHTTP.SUCCESS, categories);
+};
+
 module.exports = {
   checksCategoryRegistration,
+  getAllCategories,
 };

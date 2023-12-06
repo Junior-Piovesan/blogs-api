@@ -6,6 +6,12 @@ const authenticationMIddleware = require('../middlewares/authorizationMiddlaware
 
 const middlawares = require('../middlewares/categories.middleware');
 
+router.get(
+  '/categories',
+  authenticationMIddleware.authentication,
+  categoriesControllers.getAllCategories,
+);
+
 router.post(
   '/categories',
   authenticationMIddleware.authentication,

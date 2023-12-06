@@ -9,4 +9,12 @@ const registerCategory = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
-module.exports = { registerCategory };
+const getAllCategories = async (req, res) => {
+  const { status, data } = await categoriesServices.getAllCategories();
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
+module.exports = {
+  registerCategory,
+  getAllCategories,
+};
