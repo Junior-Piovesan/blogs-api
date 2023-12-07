@@ -1,6 +1,7 @@
 const getPostsServices = require('../services/postsGet.service');
 const postCreateService = require('../services/postCreate.service');
 const postUpadateService = require('../services/postsUpdate.service');
+const postDeleteService = require('../services/postDelete.service');
 
 const mapStatusHTTP = require('../utils/mapStatusHTTP');
 
@@ -36,9 +37,21 @@ const updatePost = async (req, res) => {
 
   return res.status(mapStatusHTTP(status)).json(data);
 };
+
+const deletePost = async (req, res) => {
+  const { id } = req.params;
+  const { user } = res.locals;
+
+  const { status, data } = await postDeleteService
+    .checkDeletePost(id, user);
+
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   registerPost,
   getAllPosts,
   getPostById,
   updatePost,
+  deletePost,
 };
