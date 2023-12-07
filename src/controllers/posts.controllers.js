@@ -16,7 +16,17 @@ const getAllPosts = async (_req, res) => {
 
   return res.status(mapStatusHTTP(status)).json(data);
 };
+
+const getPostById = async (req, res) => {
+  const { id } = req.params;
+
+  const { status, data } = await postsServices.checkPostExist(id);
+
+  res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   registerPost,
   getAllPosts,
+  getPostById,
 };
