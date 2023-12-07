@@ -48,9 +48,12 @@ const checkUserIdExist = async (id) => {
   return returnSuccessStatus(codeHTTP.SUCCESS, user);
 };
 
-module.exports = {
-  checkLogin,
-  checkUserCreation,
-  getAllUsers,
-  checkUserIdExist,
+const deleteUser = async ({ email }) => {
+  const userInfo = await User.findOne({ where: { email } });
+  console.log(userInfo.dataValues.id);
+  await User.destroy({ where: { id: userInfo.dataValues.id } });
+  return returnSuccessStatus(codeHTTP.NO_CONTENT, '');
+};
+
+module.exports = { checkLogin, checkUserCreation, getAllUsers, checkUserIdExist, deleteUser,
 };

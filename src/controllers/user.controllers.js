@@ -33,9 +33,18 @@ const getUserById = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const deleteUserResponse = async (req, res) => {
+  const { user } = res.locals;
+  console.log(user);
+  const { status, data } = await userService.deleteUser(user);
+
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   loginResponse,
   createUserResponse,
   getAllUsers,
   getUserById,
+  deleteUserResponse,
 };

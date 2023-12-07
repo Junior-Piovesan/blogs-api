@@ -13,7 +13,6 @@ router.get(
 
 router.get(
   '/user/:id',
-  // (req,res) => res.status(200).json(req.params.id),
   authorizationMiddlaware.authentication,
   userControllers.getUserById,
 
@@ -29,6 +28,12 @@ router.post(
   '/user',
   middlawares.checkUserCreation,
   userControllers.createUserResponse,
+);
+
+router.delete(
+  '/user/me',
+  authorizationMiddlaware.authentication,
+  userControllers.deleteUserResponse,
 );
 
 module.exports = router;
