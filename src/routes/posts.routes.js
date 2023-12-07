@@ -5,6 +5,12 @@ const middlewares = require('../middlewares/postsMiddlaware');
 
 const postsControllers = require('../controllers/posts.controllers');
 
+router.get(
+  '/post',
+  authenticationMIddleware.authentication,
+  postsControllers.getAllPosts,
+);
+
 router.post(
   '/post',
   authenticationMIddleware.authentication,

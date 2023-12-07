@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 const returnErrorResponse = require('../utils/returnErrorStatus');
 const returnSuccessResponse = require('../utils/returnSuccessStatus');
 
@@ -32,6 +33,29 @@ const checkRegisteredPost = async (post, { email }) => {
   return returnSuccessResponse(codeHTTP.CREATED, response);
 };
 
+const getAllPostsWithCategoriesAndUsers = async () => {
+  const posts = await BlogPost.findAll(
+    { 
+      attributes: { exclude: ['user_id'] },
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: { exclude: ['password'] },
+        },
+        {
+          model: Category,
+          as: 'categories',
+          through: { attributes: [] },
+        },
+      ],
+    },
+  );
+
+  return returnSuccessResponse(codeHTTP.SUCCESS, posts);
+};
+
 module.exports = {
   checkRegisteredPost,
+  getAllPostsWithCategoriesAndUsers,
 };

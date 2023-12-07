@@ -10,6 +10,13 @@ const registerPost = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const getAllPosts = async (_req, res) => {
+  const { status, data } = await postsServices
+    .getAllPostsWithCategoriesAndUsers();
+
+  return res.status(mapStatusHTTP(status)).json(data);
+};
 module.exports = {
   registerPost,
+  getAllPosts,
 };
