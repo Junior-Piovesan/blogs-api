@@ -22,6 +22,13 @@ router.post(
   authenticationMIddleware.authentication,
   middlewares.checkPostRegistration,
   postsControllers.registerPost,
-
 );
+
+router.put(
+  '/post/:id',
+  authenticationMIddleware.authentication,
+  middlewares.checkUpdatePost,
+  postsControllers.updatePost,
+);
+
 module.exports = router;

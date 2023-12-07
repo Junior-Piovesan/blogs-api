@@ -17,6 +17,24 @@ const checkPostRegistration = (req, res, next) => {
   return next();
 };
 
+const checkUpdatePost = (req, res, next) => {
+  const { title, content } = req.body;
+
+  if (!title || !content) {
+    return res.status(mapStatusHTTP(codeHTTP.BAD_REQUEST))
+      .json({ message: 'Some required fields are missing',
+      });
+  }
+
+  if (title.length < 1 || content.length < 1) {
+    return res.status(mapStatusHTTP(codeHTTP.BAD_REQUEST))
+      .json({ message: 'Some required fields are missing',
+      });
+  }
+  return next();
+};
+
 module.exports = {
   checkPostRegistration,
+  checkUpdatePost,
 };
