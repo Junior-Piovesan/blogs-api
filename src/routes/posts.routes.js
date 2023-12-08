@@ -12,6 +12,12 @@ router.get(
 );
 
 router.get(
+  '/post/search',
+  authenticationMIddleware.authentication,
+  postsControllers.getPostsByQueryResponse,
+);
+
+router.get(
   '/post/:id',
   authenticationMIddleware.authentication,
   postsControllers.getPostById,

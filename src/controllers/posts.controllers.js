@@ -8,25 +8,29 @@ const mapStatusHTTP = require('../utils/mapStatusHTTP');
 const registerPost = async (req, res) => {
   const { user } = res.locals;
   const post = req.body;
-  const { status, data } = await postCreateService
-    .checkRegisteredPost(post, user);
+  const { status, data } = await postCreateService.checkRegisteredPost(post, user);
 
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
 const getAllPosts = async (_req, res) => {
-  const { status, data } = await getPostsServices
-    .getAllPostsWithCategoriesAndUsers();
+  const { status, data } = await getPostsServices.getAllPostsWithCategoriesAndUsers();
 
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
 const getPostById = async (req, res) => {
-  const { id } = req.params;
-
-  const { status, data } = await getPostsServices.getPostById(id);
+  const { status, data } = await getPostsServices.getPostById(req.params.id);
 
   res.status(mapStatusHTTP(status)).json(data);
+};
+
+const getPostsByQueryResponse = async (req, res) => {
+  const { q } = req.query;
+  
+  const { status, data } = await getPostsServices.getUserByQueryParam(q);
+  
+  return res.status(mapStatusHTTP(status)).json(data);
 };
 
 const updatePost = async (req, res) => {
@@ -39,19 +43,17 @@ const updatePost = async (req, res) => {
 };
 
 const deletePost = async (req, res) => {
-  const { id } = req.params;
   const { user } = res.locals;
 
-  const { status, data } = await postDeleteService
-    .checkDeletePost(id, user);
+  const { status, data } = await postDeleteService.checkDeletePost(req.params.id, user);
 
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
-module.exports = {
-  registerPost,
+module.exports = { registerPost,
   getAllPosts,
   getPostById,
   updatePost,
   deletePost,
+  getPostsByQueryResponse,
 };
